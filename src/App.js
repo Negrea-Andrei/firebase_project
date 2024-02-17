@@ -17,12 +17,28 @@ const photos = [
 ];
 
 function App() {
-  const [input, setInput] = useState();
+  const [input, setInput] = useState({ title: null, file: null, path: null });
   const [items, setItems] = useState(photos);
   const [isCollapsed, collapse] = useState(false);
   const toggle = () => collapse(!isCollapsed);
-  const handleOnChange = (e) => {setInput(e.target.value)}
-  const handleOnSubmit = (e) => {e.preventDefault(); setItems([...items,input])}
+  const handleOnChange = (e) => {
+    if (e.target.name === "file") {
+      setInput({
+        ...input,
+        file: e.target.files[0],
+        path: URL.createObjectURL(e.target.files[0]),
+      });
+    } else {
+      setInput({
+        ...input,
+        title: e.target.value,
+      });
+    }
+  };
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    setItems([input.path, ...items]);
+  };
   return (
     <>
       <NavBar />
@@ -31,9 +47,11 @@ function App() {
           {isCollapsed ? "Close" : "Add +"}
         </button>
         <div className="clearfix mb-4"></div>
-        <UploadForm isCollapsed={isCollapsed}
-        onChange={handleOnChange}
-        onSubmit={handleOnSubmit} />
+        <UploadForm
+          isCollapsed={isCollapsed}
+          onChange={handleOnChange}
+          onSubmit={handleOnSubmit}
+        />
         <h1>Polaroids</h1>
         <div className="row d-flex align-items-center justify-content-center">
           {items.map((photo) => (
