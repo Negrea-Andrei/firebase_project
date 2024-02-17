@@ -1,13 +1,17 @@
 import logo from "../assets/images/logo.svg";
+
 export default function NavBar() {
   return (
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+    // Navbar container
+    <nav className="navbar navbar-expand-lg bg-body-tertiary">
+      <div className="container-fluid">
+        //!Logo
+        <a className="navbar-brand" href="#">
           <img src={logo} alt="Logo" />
         </a>
+        //!Navbar Toggler Button
         <button
-          class="navbar-toggler"
+          className="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarSupportedContent"
@@ -15,38 +19,41 @@ export default function NavBar() {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">
+        {/* Navbar Items */}
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            <li className="nav-item">
+              <a className="nav-link active" aria-current="page" href="#">
                 Home
               </a>
             </li>
           </ul>
+          //! Search Form
           <form className="d-flex" role="search">
             <input
-              class="form-control me-2"
+              className="form-control me-2"
               type="search"
               placeholder="Search"
               aria-label="Search"
             />
-            <button class="btn btn-outline-success" type="submit">
+            <button className="btn btn-outline-success" type="submit">
               Search
             </button>
-            <div class="btn-group ml-auto">
+            //! Login Dropdown
+            <div className="btn-group ml-auto">
               <button
                 type="button"
-                class="btn btn-outline-primary dropdown-toggle"
+                className="btn btn-outline-primary dropdown-toggle"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
                 Login
               </button>
-              <ul class="dropdown-menu dropdown-menu-end">
+              <ul className="dropdown-menu dropdown-menu-end">
                 <li />
-                <a class="dropdown-item" href="#">
+                <a className="dropdown-item" href="#">
                   Action
                 </a>
               </ul>
