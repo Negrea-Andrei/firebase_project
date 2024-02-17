@@ -1,6 +1,8 @@
 import NavBar from "./components/NavBar";
 import Card from "./components/Card";
-import { v4 as uuid } from 'uuid';
+import UploadForm from "./components/uploadform";
+import { v4 as uuid } from "uuid";
+import { useState } from "react";
 import "./App.css";
 
 const photos = [
@@ -15,18 +17,31 @@ const photos = [
 ];
 
 function App() {
+  const [input, setInput] = useState();
+  const [items, setItems] = useState(photos);
+  const [isCollapsed, collapse] = useState(false);
+  const toggle = () => collapse(!isCollapsed);
+  const handleOnChange = (e) => {setInput(e.target.value)}
+  const handleOnSubmit = (e) => {e.preventDefault(); setItems([...items,input])}
   return (
-      <>
-          <NavBar />
-          <div className="container text-center mt-5">
-              <h1>Polaroid</h1>
-              <div className="row">
-                  {photos.map((photo) =>
-                      <Card key={uuid()} photo={photo} />
-                  )}
-              </div>
-          </div>
-      </>
+    <>
+      <NavBar />
+      <div className="container text-center mt-5">
+        <button className="btn btn-success float-end" onClick={toggle}>
+          {isCollapsed ? "Close" : "Add +"}
+        </button>
+        <div className="clearfix mb-4"></div>
+        <UploadForm isCollapsed={isCollapsed}
+        onChange={handleOnChange}
+        onSubmit={handleOnSubmit} />
+        <h1>Polaroids</h1>
+        <div className="row d-flex align-items-center justify-content-center">
+          {items.map((photo) => (
+            <Card key={uuid()} photo={photo} />
+          ))}
+        </div>
+      </div>
+    </>
   );
 }
 

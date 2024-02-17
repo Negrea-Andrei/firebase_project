@@ -5,11 +5,15 @@ export default function NavBar() {
     // Navbar container
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">
-        //!Logo
-        <a className="navbar-brand" href="#">
+        {/* Logo */}
+        <a
+          className="navbar-brand"
+          href="https://getbootstrap.com/docs/5.3/components/dropdowns/"
+        >
           <img src={logo} alt="Logo" />
         </a>
-        //!Navbar Toggler Button
+
+        {/* Navbar Toggler Button */}
         <button
           className="navbar-toggler"
           type="button"
@@ -21,17 +25,11 @@ export default function NavBar() {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
+
         {/* Navbar Items */}
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="#">
-                Home
-              </a>
-            </li>
-          </ul>
-          //! Search Form
-          <form className="d-flex" role="search">
+          {/* Search Form */}
+          <form className="d-flex ms-auto" role="search">
             <input
               className="form-control me-2"
               type="search"
@@ -41,8 +39,9 @@ export default function NavBar() {
             <button className="btn btn-outline-success" type="submit">
               Search
             </button>
-            //! Login Dropdown
-            <div className="btn-group ml-auto">
+
+            {/* Login Dropdown */}
+            <div className="btn-group ml-2">
               <button
                 type="button"
                 className="btn btn-outline-primary dropdown-toggle"
@@ -53,7 +52,10 @@ export default function NavBar() {
               </button>
               <ul className="dropdown-menu dropdown-menu-end">
                 <li />
-                <a className="dropdown-item" href="#">
+                <a
+                  className="dropdown-item"
+                  href="https://getbootstrap.com/docs/5.3/components/dropdowns/"
+                >
                   Action
                 </a>
               </ul>
