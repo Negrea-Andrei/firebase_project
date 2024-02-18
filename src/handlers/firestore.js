@@ -1,18 +1,21 @@
-import { getFirestore, setDoc } from "firebase/firestore";
-import {db} from "./lib/firebase.config";
+// Firestore.js
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
+import { db } from "../lib/firebase.config";
 
 const Firestore = {
-    writeDocs: (...args) => {
-        const [inputs, collection_name] = args
-        return new Promise((resolve) => {
+    writeDoc: async (input, collection_name) => {
+        return new Promise(async (resolve, reject) => {
+            const randomNumbers = Math.floor(Math.random() * 10000);
             try {
-                const randomNumbers = Math.floor(Math.random() * 10000 )
-                const docRef = doc(db, 'stocks', `${randomNumbers}`);
-                setDoc(docRef, { 
-                    key: ''
-                });
-
-            } catch (e) { }
+                const docRef = doc(db, collection_name, `${randomNumbers}`);
+                await setDoc(docRef, { title: input.title, path: input.path, createdAt: serverTimestamp() });
+                resolve('new polaroid uploaded');
+            } catch (error) {
+                console.error("Error writing document: ", error);
+                reject(error);
+            }
         });
     },
 };
+
+export default Firestore;

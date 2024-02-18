@@ -4,6 +4,9 @@ import UploadForm from "./components/uploadform";
 import { v4 as uuid } from "uuid";
 import {useState } from "react";
 import "./App.css";
+import Firestore  from "./handlers/firestore";
+
+const {writeDoc} = Firestore
 
 const photos = [
   "https://picsum.photos/id/1001/200/200",
@@ -40,10 +43,16 @@ function App() {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    setItems([input.path, ...items]);
-    setInput({ title: null, file: null, path: null });
-    toggle();
+    writeDoc(input, 'stocks')
+      .then(result => {
+        console.log(result);
+        setItems([input.path, ...items]);
+        setInput({ title: null, file: null, path: null });
+        toggle();
+      })
+      .catch(error => console.error(error));
   };
+
   return (
     <>
       <NavBar />
