@@ -1,7 +1,9 @@
 import Preview from "./Preview";
 import { useMemo } from "react";
 
+
 export default function UploadForm({ isCollapsed, onChange, onSubmit, input }) {
+  
   const isDisabled = useMemo(() => {
     return !!Object.values(input).some((value) => !value);
   }, [input]);

@@ -2,27 +2,21 @@ import NavBar from "./components/NavBar";
 import Card from "./components/Card";
 import UploadForm from "./components/uploadform";
 import { v4 as uuid } from "uuid";
-import {useState } from "react";
+import { useState, useEffect } from "react";
+import Storage from "./handlers/storage"
 import "./App.css";
-import Firestore  from "./handlers/firestore";
+import Firestore from "./handlers/firestore";
 
-const {writeDoc} = Firestore
+const { writeDoc, readDocs } = Firestore
 
-const photos = [
-  "https://picsum.photos/id/1001/200/200",
-  "https://picsum.photos/id/1002/200/200",
-  "https://picsum.photos/id/1003/200/200",
-  "https://picsum.photos/id/1004/200/200",
-  "https://picsum.photos/id/1005/200/200",
-  "https://picsum.photos/id/1006/200/200",
-  "https://picsum.photos/id/1009/200/200",
-  "https://picsum.photos/id/1008/200/200",
-];
+
+const photos = [];
 
 function App() {
   const [input, setInput] = useState({ title: null, file: null, path: null });
   const [items, setItems] = useState(photos);
   const [isCollapsed, collapse] = useState(false);
+  const { uploadFile } = Storage
 
   const toggle = () => collapse(!isCollapsed);
 
@@ -43,15 +37,33 @@ function App() {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    writeDoc(input, 'stocks')
-      .then(result => {
-        console.log(result);
-        setItems([input.path, ...items]);
-        setInput({ title: null, file: null, path: null });
-        toggle();
+    uploadFile(input)
+      .then((medium) => {
+        writeDoc(input, 'stocks')
+          .then((result) => {
+            console.log(result);
+            setItems([medium.path, ...items]);
+            setInput({ title: null, file: null, path: null });
+            toggle();
+          })
+          .catch((error) => console.error(error));
       })
-      .catch(error => console.error(error));
+      .catch((error) => console.error(error));
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const itemsFromDatabase = await readDocs('stocks');
+        setItems([...itemsFromDatabase, ...photos]);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+
+  }, []);
 
   return (
     <>
@@ -70,7 +82,7 @@ function App() {
         <h1>Polaroids</h1>
         <div className="row d-flex align-items-center justify-content-center">
           {items.map((photo) => (
-            <Card key={uuid()} photo={photo} />
+            <Card key={uuid()} photo={photo.path} />
           ))}
         </div>
       </div>
