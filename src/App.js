@@ -14,7 +14,7 @@ const photos = [];
 
 function App() {
   const [input, setInput] = useState({ title: null, file: null, path: null });
-  const [items, setItems] = useState(photos);
+  const [items, setItems] = useState([]);
   const [isCollapsed, collapse] = useState(false);
   const { uploadFile, downloadFile } = Storage
 
@@ -40,10 +40,11 @@ function App() {
     uploadFile(input)
       .then(downloadFile)
       .then(url => {
-        writeDoc({...input, path:url}, 'stocks')
+        const newItem = { path: url };
+        writeDoc({ ...input, path: url }, 'stocks')
           .then((result) => {
             console.log(result);
-            setItems([{ path: url.path }, ...items]);
+            setItems([newItem, ...items]);
             setInput({ title: null, file: null, path: null });
             toggle();
           })
@@ -83,7 +84,7 @@ function App() {
         <h1>Polaroids</h1>
         <div className="row d-flex align-items-center justify-content-center">
           {items.map((photo) => (
-            <Card key={uuid()} photo={photo && photo.path} />
+            <Card key={uuid()} photo={photo} />
           ))}
         </div>
       </div>
