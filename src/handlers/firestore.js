@@ -1,13 +1,18 @@
 import { getFirestore, setDoc } from "firebase/firestore";
-import app from "./lib/firebase.config";
-
-const db = getFirestore(app);
+import {db} from "./lib/firebase.config";
 
 const Firestore = {
-  writeDocs: (...args) => {
-    return new Promise((resolve) => {
-      try {
-      } catch(e) {}
-    });
-  },
+    writeDocs: (...args) => {
+        const [inputs, collection_name] = args
+        return new Promise((resolve) => {
+            try {
+                const randomNumbers = Math.floor(Math.random() * 10000 )
+                const docRef = doc(db, 'stocks', `${randomNumbers}`);
+                setDoc(docRef, { 
+                    key: ''
+                });
+
+            } catch (e) { }
+        });
+    },
 };

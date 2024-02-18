@@ -1,28 +1,29 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getFirestore } from "firebase/firestore";
+
+// Load environment variables from .env file
+const apiKey = process.env.API_KEY;
+const authDomain = "polaroid-feb2e.firebaseapp.com";
+const projectId = "polaroid-feb2e";
+const storageBucket = "polaroid-feb2e.appspot.com";
+const messagingSenderId = process.env.MESSAGE_ID;
+const appId = process.env.ID;
+const measurementId = "G-ZW80N5XQW9";
 
 // Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyBxuy0WfUinHUMzu_3XUpUpaoQ7jY_lwfA",
-  authDomain: "polaroid-feb2e.firebaseapp.com",
-  projectId: "polaroid-feb2e",
-  storageBucket: "polaroid-feb2e.appspot.com",
-  messagingSenderId: "373470389575",
-  appId: "1:373470389575:web:4549cccb125ef1819bd862",
-  measurementId: "G-ZW80N5XQW9",
+  apiKey,
+  authDomain,
+  projectId,
+  storageBucket,
+  messagingSenderId,
+  appId,
+  measurementId,
 };
 
 // Initialize Firebase
-const app = () => {
-  if (!firebaseConfig || !firebaseConfig.apiKey) {
-    throw new Error("Error");
-  } else {
-    console.log("Works");
-  }
-  return initializeApp(firebaseConfig);
-};
+const app = initializeApp(firebaseConfig);
+export const db = getFirestore(app);
 
 export default app;
