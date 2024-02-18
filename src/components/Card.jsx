@@ -1,3 +1,5 @@
+import React from 'react';
+
 export default function Card({ photo }) {
     // Generate a unique identifier for the card using uuid
 
@@ -11,6 +13,7 @@ export default function Card({ photo }) {
                     src={photo}
                     className="card-img-top"
                     alt={photo}
+                    loading="lazy"  // Add lazy loading attribute
                 />
                 
             </div>

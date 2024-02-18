@@ -20,7 +20,9 @@ function App() {
   const [input, setInput] = useState({ title: null, file: null, path: null });
   const [items, setItems] = useState(photos);
   const [isCollapsed, collapse] = useState(false);
+
   const toggle = () => collapse(!isCollapsed);
+
   const handleOnChange = (e) => {
     if (e.target.name === "file") {
       setInput({
@@ -35,9 +37,12 @@ function App() {
       });
     }
   };
+  
   const handleOnSubmit = (e) => {
     e.preventDefault();
     setItems([input.path, ...items]);
+    setInput({ title: null, file: null, path: null })
+    toggle()
   };
   return (
     <>
@@ -51,6 +56,7 @@ function App() {
           isCollapsed={isCollapsed}
           onChange={handleOnChange}
           onSubmit={handleOnSubmit}
+          input={input}
         />
         <h1>Polaroids</h1>
         <div className="row d-flex align-items-center justify-content-center">
