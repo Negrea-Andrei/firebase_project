@@ -2,7 +2,8 @@ import NavBar from "./components/NavBar";
 import Card from "./components/Card";
 import UploadForm from "./components/uploadform";
 import { v4 as uuid } from "uuid";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import app from "./lib/firebase.config";
 import "./App.css";
 
 const photos = [
@@ -37,13 +38,17 @@ function App() {
       });
     }
   };
-  
+
   const handleOnSubmit = (e) => {
     e.preventDefault();
     setItems([input.path, ...items]);
-    setInput({ title: null, file: null, path: null })
-    toggle()
+    setInput({ title: null, file: null, path: null });
+    toggle();
   };
+
+  useEffect(() => {
+    app();
+  }, []);
   return (
     <>
       <NavBar />
