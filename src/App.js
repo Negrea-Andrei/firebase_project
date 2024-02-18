@@ -16,7 +16,7 @@ function App() {
   const [input, setInput] = useState({ title: null, file: null, path: null });
   const [items, setItems] = useState(photos);
   const [isCollapsed, collapse] = useState(false);
-  const { uploadFile } = Storage
+  const { uploadFile, downloadFile } = Storage
 
   const toggle = () => collapse(!isCollapsed);
 
@@ -38,11 +38,12 @@ function App() {
   const handleOnSubmit = (e) => {
     e.preventDefault();
     uploadFile(input)
-      .then((medium) => {
-        writeDoc(input, 'stocks')
+      .then(downloadFile)
+      .then(url => {
+        writeDoc({...input, path:url}, 'stocks')
           .then((result) => {
             console.log(result);
-            setItems([medium.path, ...items]);
+            setItems([{ path: url.path }, ...items]);
             setInput({ title: null, file: null, path: null });
             toggle();
           })
@@ -82,7 +83,7 @@ function App() {
         <h1>Polaroids</h1>
         <div className="row d-flex align-items-center justify-content-center">
           {items.map((photo) => (
-            <Card key={uuid()} photo={photo.path} />
+            <Card key={uuid()} photo={photo && photo.path} />
           ))}
         </div>
       </div>
