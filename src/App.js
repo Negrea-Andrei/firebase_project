@@ -81,7 +81,6 @@ function App() {
           onSubmit={handleOnSubmit}
           input={input}
         />
-        <h1>Polaroids</h1>
         <div className="row d-flex align-items-center justify-content-center">
           {items.map((photo) => (
             <Card key={uuid()} photo={photo} />

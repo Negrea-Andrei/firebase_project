@@ -3,7 +3,7 @@ import logo from "../assets/images/logo.svg";
 export default function NavBar() {
   return (
     // Navbar container
-    <nav className="navbar navbar-expand-lg bg-body-tertiary">
+    <nav className="navbar navbar-expand-lg myNavbar">
       <div className="container-fluid">
         {/* Logo */}
         <a

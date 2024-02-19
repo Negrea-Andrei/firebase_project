@@ -17,7 +17,7 @@ export default function Card({ photo }) {
             backgroundRepeat: "no-repeat",
           }}
         ></div>
-        <h2 className="text-center">{photo.title}</h2>
+        <h2 className="text-center" style={{fontFamily:"Polaroids"}}>{photo.title}</h2>
         <p>{timeCreated}</p>
       </div>
     </div>
