@@ -26,7 +26,7 @@ const Firestore = {
             const randomNumbers = Math.floor(Math.random() * 10000);
             try {
                 const docRef = doc(db, collection_name, `${randomNumbers}`);
-                await setDoc(docRef, { title: input.title, path: input.path, createdAt: serverTimestamp() });
+                await setDoc(docRef, { title: input.title, path: input.path, createdAt: serverTimestamp() , user: input.user });
                 resolve('new polaroid uploaded');
             } catch (error) {
                 console.error("Error writing document: ", error);

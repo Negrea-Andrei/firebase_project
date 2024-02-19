@@ -1,15 +1,15 @@
 import NavBar from "./components/NavBar";
 import Card from "./components/Card";
 import UploadForm from "./components/uploadform";
+import { useAuthContext } from "./context/AuthContext";
 import { v4 as uuid } from "uuid";
 import { useState, useEffect } from "react";
-import Storage from "./handlers/storage"
+import Storage from "./handlers/storage";
 
 import "./App.css";
 import Firestore from "./handlers/firestore";
 
-const { writeDoc, readDocs } = Firestore
-
+const { writeDoc, readDocs } = Firestore;
 
 const photos = [];
 
@@ -17,7 +17,9 @@ function App() {
   const [input, setInput] = useState({ title: null, file: null, path: null });
   const [items, setItems] = useState([]);
   const [isCollapsed, collapse] = useState(false);
-  const { uploadFile, downloadFile } = Storage
+  const { authenticate } = useAuthContext();
+  const {currentUser} = useAuthContext();
+  const { uploadFile, downloadFile } = Storage;  
 
   const toggle = () => collapse(!isCollapsed);
 
@@ -40,16 +42,22 @@ function App() {
     e.preventDefault();
     uploadFile(input)
       .then(downloadFile)
-      .then(url => {
+      .then((url) => {
         const newItem = { path: url };
-        writeDoc({ ...input, path: url }, 'stocks')
-          .then((result) => {
-            console.log(result);
-            setItems([newItem, ...items]);
-            setInput({ title: null, file: null, path: null });
-            toggle();
-          })
-          .catch((error) => console.error(error));
+        const userDisplayName = currentUser?.displayName.split(" ").join("").toLowerCase();
+  
+        if (userDisplayName) {
+          writeDoc({ ...input, path: url, user: userDisplayName}, "stocks")
+            .then((result) => {
+              console.log(result);
+              setItems([newItem, ...items]);
+              setInput({ title: null, file: null, path: null });
+              toggle();
+            })
+            .catch((error) => console.error(error));
+        } else {
+          console.error("User does not have a valid displayName.");
+        }
       })
       .catch((error) => console.error(error));
   };
@@ -57,16 +65,15 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const itemsFromDatabase = await readDocs('stocks');
+        const itemsFromDatabase = await readDocs("stocks");
         setItems([...itemsFromDatabase, ...photos]);
       } catch (error) {
         console.error(error);
       }
-    };
-
+    };    
+    authenticate();
     fetchData();
-
-  }, []);
+  }, [items]);
 
   return (
     <>

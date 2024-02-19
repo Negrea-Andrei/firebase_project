@@ -15,7 +15,7 @@ export default function Card({ photo }) {
       <div className="card" style={{ width: "18rem" }}>
         <div
           style={{
-            height: "220px",
+            height: "300px",
             backgroundImage: `url(${photo.path})`,
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
