@@ -2,9 +2,13 @@ import React, { useMemo } from "react";
 
 export default function Card({ photo }) {
   const timeCreated = useMemo(() => {
-    const date = `${new Date(photo.createdAt.seconds*1000)}`.split(' ')
-    return `${date[1]} ${date[2]}  ${date[3]}`
-  }, [])
+  if (photo.createdAt) {
+    const date = `${new Date(photo.createdAt.seconds * 1000)}`.split(' ');
+    return `${date[1]} ${date[2]}  ${date[3]}`;
+  } else {
+    return "Timestamp not available";
+  }
+}, [photo.createdAt]);
 
   return (
     <div className="col mb-5">

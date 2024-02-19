@@ -1,4 +1,23 @@
+import { useAuthContext } from "../context/AuthContext";
 import logo from "../assets/images/logo.svg";
+
+const LogIn = () => {
+  const {login, currentUser} = useAuthContext();
+  return (
+    !currentUser && <button type="button" className="btn btn-warning" onClick={login}>
+      Login
+    </button>
+  );
+};
+
+const LogOut = () => {
+  const {logout, currentUser} = useAuthContext();
+  return (
+    currentUser && <button type="button" className="btn btn-danger" onClick={logout}>
+      Logout
+    </button>
+  );
+};
 
 export default function NavBar() {
   return (
@@ -51,13 +70,21 @@ export default function NavBar() {
                 Login
               </button>
               <ul className="dropdown-menu dropdown-menu-end">
-                <li />
-                <a
-                  className="dropdown-item"
-                  href="https://getbootstrap.com/docs/5.3/components/dropdowns/"
-                >
-                  Action
-                </a>
+                <li>
+                  <a
+                    className="dropdown-item text-center"
+                    href="https://firebase.google.com/docs/auth/web/google-signin"
+                  >
+                    Profile
+                  </a>
+                </li>
+                <li>
+                  <hr className="dropdown-divider" />
+                </li>
+                <li className="col d-flex flex-column justify-content-center">
+                  <LogIn />
+                  <LogOut />
+                </li>
               </ul>
             </div>
           </form>
