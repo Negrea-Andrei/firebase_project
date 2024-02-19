@@ -1,25 +1,38 @@
 import { useAuthContext } from "../context/AuthContext";
+import { useMemo } from "react";
 import logo from "../assets/images/logo.svg";
 
 const LogIn = () => {
-  const {login, currentUser} = useAuthContext();
+  const { login, currentUser } = useAuthContext();
   return (
-    !currentUser && <button type="button" className="btn btn-warning" onClick={login}>
-      Login
-    </button>
+    !currentUser && (
+      <button type="button" className="btn btn-warning" onClick={login}>
+        Login
+      </button>
+    )
   );
 };
 
 const LogOut = () => {
-  const {logout, currentUser} = useAuthContext();
+  const { logout, currentUser } = useAuthContext();
   return (
-    currentUser && <button type="button" className="btn btn-danger" onClick={logout}>
-      Logout
-    </button>
+    currentUser && (
+      <button type="button" className="btn btn-danger" onClick={logout}>
+        Logout
+      </button>
+    )
   );
 };
 
 export default function NavBar() {
+  const { currentUser } = useAuthContext();
+  const username = useMemo(() => {
+    return currentUser?.displayName || "Profile";
+  }, [currentUser]);
+
+  const avatar = useMemo(() => {
+    return !!currentUser ? <img className="avatar" src={currentUser?.photoURL} alt="avatar" width={34} height={34} /> : "Login";
+  }, [currentUser]);
   return (
     // Navbar container
     <nav className="navbar navbar-expand-lg myNavbar">
@@ -27,7 +40,7 @@ export default function NavBar() {
         {/* Logo */}
         <a
           className="navbar-brand"
-          href="https://getbootstrap.com/docs/5.3/components/dropdowns/"
+          href="#"
         >
           <img src={logo} alt="Logo" />
         </a>
@@ -67,15 +80,15 @@ export default function NavBar() {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                Login
+                {avatar}
               </button>
               <ul className="dropdown-menu dropdown-menu-end">
                 <li>
                   <a
                     className="dropdown-item text-center"
-                    href="https://firebase.google.com/docs/auth/web/google-signin"
+                    href="#"
                   >
-                    Profile
+                    {username}
                   </a>
                 </li>
                 <li>

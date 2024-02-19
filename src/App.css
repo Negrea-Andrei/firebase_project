@@ -7,6 +7,10 @@ body {
     background-color: #fcd89b;
 }
 
+.avatar {
+    border-radius: 50%;
+  }
+
 @font-face {
     font-family: "Polaroids";
     src: url("../src/assets/fonts/PermanentMarker-Regular.ttf");
