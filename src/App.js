@@ -91,7 +91,7 @@ function App() {
         />
         <div className="row d-flex align-items-center justify-content-center">
           {items.map((photo) => (
-            <Card key={uuid()} photo={photo} />
+            <Card key={uuid()} photo={photo} username={currentUser?.displayName} />
           ))}
         </div>
       </div>
