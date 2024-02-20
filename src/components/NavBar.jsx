@@ -31,19 +31,34 @@ export default function NavBar() {
   }, [currentUser]);
 
   const avatar = useMemo(() => {
-    return !!currentUser ? <img className="avatar" src={currentUser?.photoURL} alt="avatar" width={34} height={34} /> : "Login";
+    return !!currentUser ? (
+      <img
+        className="avatar"
+        src={currentUser?.photoURL}
+        alt="avatar"
+        width={34}
+        height={34}
+      />
+    ) : (
+      "Login"
+    );
   }, [currentUser]);
   return (
     // Navbar container
     <nav className="navbar navbar-expand-lg myNavbar">
       <div className="container-fluid">
         {/* Logo */}
-        <a
-          className="navbar-brand"
-          href="#"
-        >
+        <a className="navbar-brand" href="#">
           <img src={logo} alt="Logo" />
         </a>
+        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+          {/* remove all links except HOME */}
+          <li className="nav-item">
+            <a className="nav-link active" aria-current="page" href="#">
+              Home
+            </a>
+          </li>
+        </ul>
 
         {/* Navbar Toggler Button */}
         <button
@@ -84,10 +99,7 @@ export default function NavBar() {
               </button>
               <ul className="dropdown-menu dropdown-menu-end">
                 <li>
-                  <a
-                    className="dropdown-item text-center"
-                    href="#"
-                  >
+                  <a className="dropdown-item text-center" href="#">
                     {username}
                   </a>
                 </li>
