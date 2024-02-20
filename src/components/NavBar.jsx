@@ -1,5 +1,6 @@
 import { useAuthContext } from "../context/AuthContext";
 import { useMemo } from "react";
+import { Link } from "react-router-dom";
 import logo from "../assets/images/logo.svg";
 
 const LogIn = () => {
@@ -48,15 +49,20 @@ export default function NavBar() {
     <nav className="navbar navbar-expand-lg myNavbar">
       <div className="container-fluid">
         {/* Logo */}
-        <a className="navbar-brand" href="#">
+        <Link className="navbar-brand" to="/">
           <img src={logo} alt="Logo" />
-        </a>
+        </Link>
         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
           {/* remove all links except HOME */}
           <li className="nav-item">
-            <a className="nav-link active" aria-current="page" href="#">
+            <Link className="nav-link active" aria-current="page" to="/">
+              Public
+            </Link>
+            </li>
+            <li>
+            <Link className="nav-link active" aria-current="page" to="/test">
               Home
-            </a>
+            </Link>
           </li>
         </ul>
 
