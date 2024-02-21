@@ -106,7 +106,7 @@ export default function NavBar() {
               <ul className="dropdown-menu dropdown-menu-end">
                 <li>
                   <a className="dropdown-item text-center" href="#">
-                    {username}
+                    {currentUser && <Link to="/profile">{username}</Link>}
                   </a>
                 </li>
                 <li>

@@ -1,11 +1,10 @@
-import React, { useContext, useMemo } from "react";
+import React, { useMemo } from "react";
 import { useAuthContext } from "../context/AuthContext";
 import Card from "./Card";
 import { v4 as uuid } from "uuid";
 
 const List = ({ items }) => {
   const { currentUser } = useAuthContext();
-  const name = currentUser
 
   const userItems = useMemo(() => {
     return items.filter((photo) => photo.user === currentUser?.displayName.split(" ").join("").toLowerCase());

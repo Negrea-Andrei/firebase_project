@@ -3,7 +3,9 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import List from "./components/List";
 import Public from "./components/Public";
+import NotFound from "./components/NotFound";
 import UploadForm from "./components/uploadform";
+import Profile from "./components/Profile";
 import { useAuthContext } from "./context/AuthContext";
 import Storage from "./handlers/storage";
 import Firestore from "./handlers/firestore";
@@ -94,9 +96,11 @@ function App() {
           input={input}
         />
 
-        <Routes>          
-          <Route path="/" element={<List items={items} />} />
+        <Routes>
           <Route path="/public" element={<Public items={items} />} />
+          <Route path="/" element={<List items={items} />} />
+          <Route path="*" element={<NotFound />}/>
+          <Route path="/profile" element={<Profile />}/>
         </Routes>
 
 
