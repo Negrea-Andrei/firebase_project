@@ -49,21 +49,21 @@ export default function NavBar() {
     <nav className="navbar navbar-expand-lg myNavbar">
       <div className="container-fluid">
         {/* Logo */}
-        <Link className="navbar-brand" to="/">
+        <Link className="navbar-brand" to="/public">
           <img src={logo} alt="Logo" />
         </Link>
         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
           {/* remove all links except HOME */}
           <li className="nav-item">
-            <Link className="nav-link active" aria-current="page" to="/">
+            <Link className="nav-link active" aria-current="page" to="/public">
               Public
             </Link>
             </li>
-            <li>
-            <Link className="nav-link active" aria-current="page" to="/test">
-              Home
+            {currentUser && <li>
+            <Link className="nav-link active" aria-current="page" to="/">
+              My Polaroids
             </Link>
-          </li>
+          </li>}
         </ul>
 
         {/* Navbar Toggler Button */}
