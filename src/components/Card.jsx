@@ -12,7 +12,7 @@ export default function Card({ photo, username }) {
 
   return (
     <div className="col mb-5">
-      <div className="card" style={{ width: "18rem" }}>
+      <div className="card">
         <div
           style={{
             height: "300px",

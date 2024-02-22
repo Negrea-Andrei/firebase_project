@@ -1,5 +1,5 @@
 import { useAuthContext } from "../context/AuthContext";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/images/logo.svg";
 
@@ -25,8 +25,18 @@ const LogOut = () => {
   );
 };
 
-export default function NavBar() {
+export default function NavBar({ onSearchSubmit }) {
   const { currentUser } = useAuthContext();
+  const [text, search] = useState(null);
+  const handleOnChange = (e) => {
+    search(e.target.value);
+  };
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    onSearchSubmit(e.target.value)
+    console.log(`${text}`);
+  };
+
   const username = useMemo(() => {
     return currentUser?.displayName || "Profile";
   }, [currentUser]);
@@ -58,12 +68,14 @@ export default function NavBar() {
             <Link className="nav-link active" aria-current="page" to="/public">
               Public
             </Link>
+          </li>
+          {currentUser && (
+            <li>
+              <Link className="nav-link active" aria-current="page" to="/">
+                My Polaroids
+              </Link>
             </li>
-            {currentUser && <li>
-            <Link className="nav-link active" aria-current="page" to="/">
-              My Polaroids
-            </Link>
-          </li>}
+          )}
         </ul>
 
         {/* Navbar Toggler Button */}
@@ -82,8 +94,13 @@ export default function NavBar() {
         {/* Navbar Items */}
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           {/* Search Form */}
-          <form className="d-flex ms-auto" role="search">
+          <form
+            className="d-flex ms-auto"
+            role="search"
+            onSubmit={handleOnSubmit}
+          >
             <input
+              onChange={handleOnChange}
               className="form-control me-2"
               type="search"
               placeholder="Search"
@@ -105,9 +122,11 @@ export default function NavBar() {
               </button>
               <ul className="dropdown-menu dropdown-menu-end">
                 <li>
-                  <a className="dropdown-item text-center" href="#">
-                    {currentUser && <Link to="/profile">{username}</Link>}
-                  </a>
+                  {currentUser && (
+                    <Link className="dropdown-item text-center" to="/profile">
+                      {username}
+                    </Link>
+                  )}
                 </li>
                 <li>
                   <hr className="dropdown-divider" />
