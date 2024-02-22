@@ -1,7 +1,7 @@
-import { useAuthContext } from "../context/AuthContext";
-import { useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/images/logo.svg";
+import { useAuthContext } from "../context/AuthContext";
 
 const LogIn = () => {
   const { login, currentUser } = useAuthContext();
@@ -25,15 +25,28 @@ const LogOut = () => {
   );
 };
 
-export default function NavBar({ onSearchSubmit }) {
+export default function NavBar({ placeholder, setPlaceholder, items, setItems }) {
   const { currentUser } = useAuthContext();
-  const [text, search] = useState(null);
+  const [text, setText] = useState(null);
+
   const handleOnChange = (e) => {
-    search(e.target.value);
+    setText(e.target.value);
   };
+
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    onSearchSubmit(e.target.value)
+
+    if (!text) {
+      // If the search input is empty, set items to the placeholder
+      setItems([...placeholder]);
+    } else {
+      // If the search input is not empty, filter items based on the input
+      const filteredItems = placeholder.filter((item) =>
+        item.title.toLowerCase().includes(text.toLowerCase())
+      );
+      setItems([...filteredItems]);
+    }
+
     console.log(`${text}`);
   };
 
@@ -54,16 +67,14 @@ export default function NavBar({ onSearchSubmit }) {
       "Login"
     );
   }, [currentUser]);
+
   return (
-    // Navbar container
     <nav className="navbar navbar-expand-lg myNavbar">
       <div className="container-fluid">
-        {/* Logo */}
         <Link className="navbar-brand" to="/public">
           <img src={logo} alt="Logo" />
         </Link>
         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-          {/* remove all links except HOME */}
           <li className="nav-item">
             <Link className="nav-link active" aria-current="page" to="/public">
               Public
@@ -78,7 +89,6 @@ export default function NavBar({ onSearchSubmit }) {
           )}
         </ul>
 
-        {/* Navbar Toggler Button */}
         <button
           className="navbar-toggler"
           type="button"
@@ -91,14 +101,8 @@ export default function NavBar({ onSearchSubmit }) {
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        {/* Navbar Items */}
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          {/* Search Form */}
-          <form
-            className="d-flex ms-auto"
-            role="search"
-            onSubmit={handleOnSubmit}
-          >
+          <form className="d-flex ms-auto" role="search" onSubmit={handleOnSubmit}>
             <input
               onChange={handleOnChange}
               className="form-control me-2"
@@ -110,7 +114,6 @@ export default function NavBar({ onSearchSubmit }) {
               Search
             </button>
 
-            {/* Login Dropdown */}
             <div className="btn-group ml-2">
               <button
                 type="button"
