@@ -55,10 +55,8 @@ function App() {
         if (userDisplayName) {
           writeDoc({ ...input, path: url, user: userDisplayName }, "stocks")
             .then((result) => {
-              console.log(result);
               setItems([newItem, ...items]);
               setPlaceholder([newItem, ...items])
-              console.log(placeholder)
               setInput({ title: null, file: null, path: null });
               toggle();
             })

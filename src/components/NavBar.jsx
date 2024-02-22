@@ -46,8 +46,6 @@ export default function NavBar({ placeholder, setPlaceholder, items, setItems })
       );
       setItems([...filteredItems]);
     }
-
-    console.log(`${text}`);
   };
 
   const username = useMemo(() => {
