@@ -30,21 +30,26 @@ const Firestore = {
     // Method to write a document to a Firestore collection
     writeDoc: async (input, collection_name) => {
         return new Promise(async (resolve, reject) => {
-            const randomNumbers = Math.floor(Math.random() * 10000);
-            try {
-                // Creating a document reference with a random number as the document ID
-                const docRef = doc(db, collection_name, `${randomNumbers}`);
-                // Setting the document with the provided data
-                await setDoc(docRef, { title: input.title, path: input.path, createdAt: serverTimestamp() , user: input.user });
-                // Resolving with a success message
-                resolve('new polaroid uploaded');
-            } catch (error) {
-                // Logging and rejecting in case of error
-                console.error("Error writing document: ", error);
-                reject(error);
-            }
+          const randomNumbers = Math.floor(Math.random() * 10000);
+          try {
+            // Creating a document reference with a random number as the document ID
+            const docRef = doc(db, collection_name, `${randomNumbers}`);
+            
+            // Setting the document with the provided data
+            await setDoc(docRef, { title: input.title, path: input.path, createdAt: serverTimestamp(), user: input.user });
+            
+            // Resolving with a success message
+            resolve('new polaroid uploaded');
+            
+            // Refresh the window after successful upload
+            window.location.reload(); // or location.reload();
+          } catch (error) {
+            // Logging and rejecting in case of error
+            console.error("Error writing document: ", error);
+            reject(error);
+          }
         });
-    },
+      },
 };
 
 // Exporting the Firestore object
