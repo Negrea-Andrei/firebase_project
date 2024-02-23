@@ -1,9 +1,8 @@
 import Preview from "./Preview";
 import { useMemo } from "react";
 
+export default function UploadForm({ isCollapsed, onChange, onSubmit, input, currentUser }) {
 
-export default function UploadForm({ isCollapsed, onChange, onSubmit, input }) {
-  
   const isDisabled = useMemo(() => {
     return !!Object.values(input).some((value) => !value);
   }, [input]);
@@ -11,9 +10,11 @@ export default function UploadForm({ isCollapsed, onChange, onSubmit, input }) {
   return (
     isCollapsed && (
       <>
-        <p className="display-6 text-center mb-3">Upload a Memory</p>
+        <p className="display-6 text-center mb-3">
+          {currentUser ? "Upload a Memory" : "Please log in first"}
+        </p>
         <div className="mb-5 d-flex align-items-center justify-content-center">
-          <Preview {...input}/>
+          <Preview {...input} />
           <form
             className="mb-2"
             style={{ textAlign: "left" }}

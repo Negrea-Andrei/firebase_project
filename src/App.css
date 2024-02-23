@@ -1,27 +1,27 @@
 @font-face {
-    font-family: "Polaroids";
-    src: url("../src/assets/fonts/PermanentMarker-Regular.ttf");
-    
-}body {
-    min-height: 100vh;
-    background: radial-gradient(circle, rgba(255, 255, 255, 1) 34%, rgba(247, 215, 158, 1) 84%);
+  font-family: "Polaroids";
+  src: url("../src/assets/fonts/PermanentMarker-Regular.ttf");
+
+}
+
+body {
+  min-height: 100vh;
+  background: radial-gradient(circle, rgba(255, 255, 255, 1) 34%, rgba(247, 215, 158, 1) 84%);
 }
 
 .myNavbar {
-    background-color: #fcd89b;
+  background-color: #fcd89b;
 }
 
 .avatar {
-    border-radius: 50%;
-  }
-
-.card {
-    width: 18rem;
+  border-radius: 50%;
 }
-  
+.card {
+  width: 18rem;
+}
+
 @media (max-width: 550px) {
-    .card {
-      width: 24rem;
-    }
+  .card {
+    width: 24rem;
   }
-  
+}

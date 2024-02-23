@@ -80,7 +80,7 @@ export default function NavBar({ placeholder, setPlaceholder, items, setItems })
           </li>
           {currentUser && (
             <li>
-              <Link className="nav-link active" aria-current="page" to="/">
+              <Link className="nav-link active" aria-current="page" to="/my_list">
                 My Polaroids
               </Link>
             </li>
