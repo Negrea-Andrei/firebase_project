@@ -121,7 +121,7 @@ function App() {
 
         {/* React Router Routes */}
         <Routes>
-          <Route path="/" element={<Welcome />} />
+          <Route path="/" element={<Welcome currentUser={currentUser}/>} />
           <Route path="/public" element={<Public items={items} />} />
           <Route path="/my_list" element={<List items={items} />} />
           <Route path="*" element={<NotFound />} />

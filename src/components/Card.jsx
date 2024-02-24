@@ -31,8 +31,8 @@ export default function Card({ photo, username }) {
         </div>
         <a
           href={photo.path}
-          download={`${photo.title}.jpg`} // Use photo.title as the filename
-          className="btn btn-primary"
+          download={`${photo.title}.jpg`}
+          className="btn btn-outline-info"
         >
           Let's take a look
         </a>

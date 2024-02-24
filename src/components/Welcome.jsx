@@ -1,7 +1,7 @@
 import React from "react";
 import { useAuthContext } from "../context/AuthContext";
 
-const Welcome = () => {
+const Welcome = ({currentUser}) => {
   const { login } = useAuthContext();
 
   return (
@@ -16,9 +16,9 @@ const Welcome = () => {
         Polaroids is a user-friendly platform that allows you to create and
         organize your photo albums effortlessly.
       </p>
-      <button className="btn btn-success btn-lg btn-block" onClick={() => login()}>
+      {!currentUser && <button className="btn btn-success btn-lg btn-block" onClick={() => login()}>
         Log in
-      </button>
+      </button>}
 
       {/* Grid of 4 pictures in 2 rows */}
       <div className="row mt-4">

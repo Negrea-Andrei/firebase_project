@@ -20,7 +20,7 @@ body {
   width: 18rem;
 }
 
-@media (max-width: 550px) {
+@media (max-width: 600px) {
   .card {
     width: 24rem;
   }
