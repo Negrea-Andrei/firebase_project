@@ -19,6 +19,7 @@ export default function Card({ photo, username }) {
             backgroundImage: `url(${photo.path})`,
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
+            backgroundPosition: "center",
           }}
         ></div>
         <h2 className="text-center" style={{ fontFamily: "Polaroids" }}>
