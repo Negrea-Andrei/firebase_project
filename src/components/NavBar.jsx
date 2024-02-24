@@ -1,5 +1,5 @@
-import React, { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useMemo, useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import logo from "../assets/images/logo.svg";
 import { useAuthContext } from "../context/AuthContext";
 
@@ -28,6 +28,36 @@ const LogOut = () => {
 export default function NavBar({ placeholder, setPlaceholder, items, setItems }) {
   const { currentUser } = useAuthContext();
   const [text, setText] = useState(null);
+  const location = useLocation();
+
+  useEffect(() => {
+    // Reset the search input and show all items when the location changes
+    setText(null);
+    setItems([...placeholder]);
+  }, [location.pathname, placeholder, setItems]);
+
+  // Function to format the username
+  const formatUsername = (displayName) =>
+    displayName ? displayName.split(" ").join("").toLowerCase() : null;
+
+  // Your search function
+  const searchDocs = (text, currentUser, currentPath) => {
+    const formattedUsername = formatUsername(currentUser?.displayName);
+
+    const filteredItems = placeholder.filter((item) =>
+      item.title.toLowerCase().includes(text.toLowerCase())
+    );
+
+    // If on the "/my_list" path, filter items based on the current user
+    if (currentPath === "/my_list" && formattedUsername) {
+      const userFilteredItems = filteredItems.filter(
+        (item) => item.user === formattedUsername
+      );
+      return userFilteredItems;
+    }
+
+    return filteredItems;
+  };
 
   const handleOnChange = (e) => {
     setText(e.target.value);
@@ -41,9 +71,7 @@ export default function NavBar({ placeholder, setPlaceholder, items, setItems })
       setItems([...placeholder]);
     } else {
       // If the search input is not empty, filter items based on the input
-      const filteredItems = placeholder.filter((item) =>
-        item.title.toLowerCase().includes(text.toLowerCase())
-      );
+      const filteredItems = searchDocs(text, currentUser, location.pathname);
       setItems([...filteredItems]);
     }
   };
