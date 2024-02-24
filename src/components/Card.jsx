@@ -26,9 +26,16 @@ export default function Card({ photo, username }) {
           {photo.title}
         </h2>
         <div className="d-flex justify-content-between m-1">
-            <p>@{username}</p>
-            <p>{timeCreated}</p>
-          </div>
+          <p>@{username}</p>
+          <p>{timeCreated}</p>
+        </div>
+        <a
+          href={photo.path}
+          download={`${photo.title}.jpg`} // Use photo.title as the filename
+          className="btn btn-primary"
+        >
+          Let's take a look
+        </a>
       </div>
     </div>
   );
