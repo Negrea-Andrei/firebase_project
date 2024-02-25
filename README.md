@@ -1,3 +1,5 @@
+![Demo](src/assets/images/polaroids_example.gif)
+
 # Polaroids: Stock Management App
 
 Polaroids is a React-based stock management web application designed for efficient organization and management of stock-related files. Leveraging Firebase for authentication, database management, and deployment, Polaroids ensures a secure and seamless user experience. Users must be authenticated to access certain features, and image upload functionality is restricted to logged-in users.
